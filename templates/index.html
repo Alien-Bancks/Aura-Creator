@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AuraOS Dashboard</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <div class="background-anim"></div>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="brand"><i class="ph-fill ph-sparkle"></i>Aura Creator</div>
+            <nav>
+                <div class="menu-item active" data-target="create-section"><i class="ph ph-magic-wand"></i> Studio Criativo</div>
+                <div class="menu-item" data-target="history-section"><i class="ph ph-clock-counter-clockwise"></i> Histórico</div>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <section id="create-section" class="page-section active-section">
+                <div class="glass-panel">
+                    <div style="margin-bottom: 20px;">
+                        <h2>Studio Criativo</h2>
+                        <p style="color: var(--text-muted);">IA Multimodal para Redes Sociais</p>
+                    </div>
+
+                    <div class="creation-layout">
+                        <div class="left-panel">
+                            <div class="control-row">
+                                <div>
+                                    <label>Plataforma</label>
+                                    <select id="platformSelect">
+                                        <option value="instagram" selected>Instagram</option>
+                                        <option value="youtube">YouTube</option>
+                                        <option value="linkedin">LinkedIn</option>
+                                        <option value="twitter">X (Twitter)</option>
+                                        <option value="tiktok">TikTok</option>
+                                        <option value="gerar_imagem" style="color: #ff9eaf;">✨ Gerar Imagem (Premium)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label>Tarefa</label>
+                                    <select id="taskSelect">
+                                        <option value="legenda">Legenda Viral</option>
+                                        <option value="hashtags">#Hashtags</option>
+                                        <option value="analise_visual">Auditoria Visual</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                                <img id="imagePreview" src="" alt="Preview">
+                                <div id="uploadPlaceholder">
+                                    <i class="ph ph-image" style="font-size: 3rem; opacity: 0.5; margin-bottom: 10px;"></i>
+                                    <p>Clique para carregar</p>
+                                </div>
+                                <input type="file" id="fileInput" hidden accept="image/*">
+                            </div>
+
+                            <div id="promptContainer" class="hidden">
+                                <label style="margin-bottom:10px;">Descreva a imagem:</label>
+                                <textarea id="promptInput" placeholder="Ex: Um leão feito de cristais..."></textarea>
+                            </div>
+
+                            <button id="generateBtn" class="generate-btn">
+                                <i class="ph-fill ph-sparkle"></i> Gerar Conteúdo
+                            </button>
+                        </div>
+
+                        <div class="right-panel">
+                            <label>Simulação da Postagem</label>
+                            
+                            <div class="result-header">
+                                <button class="tab-btn active" id="btnVisual"><i class="ph ph-eye"></i> Visual</button>
+                                <button class="tab-btn" id="btnText"><i class="ph ph-text-aa"></i> Texto</button>
+                                <button class="tab-btn copy-btn" id="btnCopy"><i class="ph ph-copy"></i></button>
+                            </div>
+
+                            <div class="result-container">
+                                <div id="loadingState" class="hidden" style="text-align: center; padding: 50px;">
+                                    <div class="spinner"></div><p>Aura está criando...</p>
+                                </div>
+                                <div id="emptyState" style="text-align: center; padding: 50px; opacity: 0.5;">
+                                    <i class="ph ph-placeholder" style="font-size: 3rem;"></i><p>Selecione uma imagem para começar.</p>
+                                </div>
+
+                                <div id="visualContainer">
+                                    
+                                    <div id="instaMockup" class="mockup-wrapper insta-mockup hidden">
+                                        <div class="insta-header"><div class="insta-user"><div class="insta-avatar"></div> aura.ai</div><i class="ph ph-dots-three"></i></div>
+                                        <img id="instaResultImg" class="insta-img">
+                                        <div class="insta-actions"><i class="ph ph-heart"></i><i class="ph ph-chat-circle"></i></div>
+                                        <div class="insta-caption" id="instaCaption"></div>
+                                    </div>
+
+                                    <div id="youtubeMockup" class="mockup-wrapper youtube-mockup hidden">
+                                        <div class="yt-thumb-container">
+                                            <img id="ytResultImg" class="yt-img">
+                                            <span class="yt-duration">10:24</span>
+                                        </div>
+                                        <div class="yt-info">
+                                            <div class="yt-avatar"></div>
+                                            <div class="yt-text-block">
+                                                <h3 id="ytTitlePreview">Título do Vídeo Gerado Aqui</h3>
+                                                <div class="yt-meta">Aura Creator • 24 mil visualizações • há 5 horas</div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div id="linkedinMockup" class="mockup-wrapper linkedin-mockup hidden">
+                                        <div class="linkedin-header">
+                                            <div class="linkedin-avatar"></div>
+                                            <div><strong>Aura Creator AI</strong><br><small>Inteligência Artificial</small></div>
+                                        </div>
+                                        <div class="linkedin-body" id="linkedinCaption"></div>
+                                        <img id="linkedinResultImg" class="linkedin-img">
+                                    </div>
+
+                                    <div id="twitterMockup" class="mockup-wrapper twitter-mockup hidden">
+                                        <div class="twitter-header">
+                                            <div class="twitter-avatar"></div>
+                                            <div><strong>Aura</strong> <span style="color:#777">@aura_ai</span></div>
+                                        </div>
+                                        <div class="twitter-body" id="twitterCaption"></div>
+                                        <img id="twitterResultImg" class="twitter-img">
+                                    </div>
+
+                                    <div id="genericResult" class="hidden" style="white-space: pre-wrap; line-height: 1.6;"></div>
+
+                                    <div id="premiumLock" class="premium-lock hidden">
+                                        <i class="ph-fill ph-lock-key" style="font-size: 3rem; color: #ffccf2;"></i>
+                                        <h3>Recurso Premium</h3>
+                                        <p>Geração de imagens requer plano Pro.</p>
+                                    </div>
+                                </div>
+
+                                <textarea id="rawTextArea" class="raw-text-area hidden" readonly></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="history-section" class="page-section">
+                <div class="glass-panel">
+                    <h2>Galeria & Histórico</h2>
+                    <div id="historyGrid" style="display: grid; gap: 20px; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); margin-top: 20px;">
+                        <p>Carregando...</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    <script src="/static/script.js"></script>
+</body>
+</html>
