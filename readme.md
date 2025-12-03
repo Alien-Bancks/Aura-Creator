@@ -5,7 +5,7 @@
 
 ---
 
-## 🎯 Sobre o Projeto
+## Sobre o Projeto
 
 O **Aura Creator** é uma aplicação Full-Stack desenvolvida para resolver o bloqueio criativo de Social Media Managers e Influenciadores. Diferente de chats de IA comuns, o AuraOS é **Multimodal** (enxerga imagens) e **Contextual** (sabe como cada rede social funciona).
 
@@ -13,7 +13,7 @@ O sistema permite que o usuário faça upload de uma imagem e receba legendas, h
 
 ---
 
-## 🛠️ Tech Stack (O que foi usado e Por Quê?)
+## Tech Stack 
 
 Este projeto foi construído com uma arquitetura moderna, focada em performance e experiência do usuário (UX).
 
@@ -29,20 +29,20 @@ Este projeto foi construído com uma arquitetura moderna, focada em performance 
 
 ---
 
-## ✨ Funcionalidades Principais
+## Funcionalidades Principais
 
 1.  **👁️ Visão Computacional:** A IA analisa a foto enviada (cores, sentimentos, objetos) para criar conteúdo contextual.
 2.  **📱 Mockups em Tempo Real:**
     * **Instagram:** Simula o feed escuro com a legenda formatada.
     * **YouTube:** Gera um card estilo "Home do YouTube" com a thumbnail e título inserido.
     * **LinkedIn/Twitter:** Simula os layouts específicos dessas redes.
-3.  **📂 Histórico Automático:** Tudo o que é gerado é salvo automaticamente em um banco de dados local (`aura_history.db`) e pode ser consultado na aba lateral.
+3.  **Histórico Automático:** Tudo o que é gerado é salvo automaticamente em um banco de dados local (`aura_history.db`) e pode ser consultado na aba lateral.
 4.  **⚡ Geração Assíncrona:** O uso de `async/await` no Python garante que o site não trave enquanto a IA "pensa".
 5.  **💎 UX Premium:** Interface com animações fluidas, efeitos de vidro (blur), transições suaves e tratamento de erros amigável (telas de loading, avisos de premium).
 
 ---
 
-## 🚀 Como Rodar o Projeto
+## Como Rodar o Projeto
 
 Siga os passos abaixo para ter o projeto rodando na sua máquina.
 
